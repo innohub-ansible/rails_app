@@ -1,0 +1,4 @@
+{{ rails_app_env }}:
+{% for key, value in rails_app_database.iteritems() %}
+  {{ key }}: {{ value }}
+{% endfor %}
