@@ -27,6 +27,15 @@
   shell: >
     /bin/bash ~/deploy/deploy.sh
 
+- name: capture rails app ruby path
+  sudo_user: deployer
+  shell: >
+    executable=/bin/bash source /etc/profile;
+    chruby `cat ~/.ruby-version` &&
+    which ruby
+  register: rails_app_ruby_path
+  when: "rails_app_nginx_group in group_names"
+
 - name: update nginx site config
   template: src=nginx_site.conf dest=/etc/nginx/sites-enabled/{{ rails_app_name }}_{{ rails_app_env }}.conf
   notify: restart nginx

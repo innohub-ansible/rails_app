@@ -3,11 +3,6 @@ require 'mina/rails'
 require 'mina/git'
 require 'mina/chruby'
 
-{% if rails_app_sidekiq and inventory_hostname in groups[rails_app_sidekiq_group] %}
-  require 'mina_sidekiq/tasks'
-  set :sidekiq_pid, "#{deploy_to}/shared/tmp/pids/sidekiq.pid"
-{% endif %}
-
 # Domain will not be used!
 set :domain, 'foobar.com'
 set :deploy_to, '{{ rails_app_deploy_to }}'
@@ -20,6 +15,11 @@ set :shared_paths, [
   'log',
   'tmp'
 ]
+
+{% if rails_app_sidekiq and inventory_hostname in groups[rails_app_sidekiq_group] %}
+  require 'mina_sidekiq/tasks'
+  set :sidekiq_pid, "#{deploy_to}/shared/tmp/pids/sidekiq.pid"
+{% endif %}
 
 task :environment do
   invoke :'chruby[{{ ruby_default_version }}]'
