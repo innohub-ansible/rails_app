@@ -1,0 +1,18 @@
+---
+galaxy_info:
+  author: Andrew Angelo Ang
+  description: Sets up and deploys a rails application
+  company: InnoHub, INc.
+  license: MIT
+  min_ansible_version: 1.4
+  platforms:
+    - name: Ubuntu
+      versions:
+        - precise
+        - trusty
+  categories:
+    - development
+    - web
+dependencies:
+  - role: innohub-ansible.deployer
+  - role: innohub-ansible.ruby

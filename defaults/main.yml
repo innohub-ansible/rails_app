@@ -1,0 +1,28 @@
+---
+rails_app_name: rails_app
+rails_app_env: staging
+
+rails_app_domain: rails.example.com
+
+rails_app_repo: https://github.com/dukz/rails_ansible_test_app.git
+rails_app_repo_branch: master
+
+rails_app_deploy_to: /deployer/services/{{ rails_app_name }}_{{ rails_app_env }}
+rails_app_current_path: "{{ rails_app_deploy_to }}/current"
+rails_app_shared_path: "{{ rails_app_deploy_to }}/shared"
+
+rails_app_database:
+  adapter: postgresql
+  encoding: unicode
+  pool: 25
+  host: localhost
+  port: 5432
+  database: "{{ rails_app_name }}_{{ rails_app_env }}"
+  username: "{{ rails_app_name }}"
+  password:
+
+rails_app_secrets:
+  secret_key_base:
+
+rails_app_sidekiq: true
+rails_app_sidekiq_group: sidekiq_servers

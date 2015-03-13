@@ -1,0 +1,22 @@
+- hosts: all
+  vars:
+    deployer_authorized_keys: []
+    deployer_ssh_private_key:
+    deployer_ssh_public_key:
+    deployer_ssh_keyscan_domains:
+      - github.com
+    ruby_install_ruby_versions:
+      - 2.2.1
+    ruby_default_version: 2.2.1
+    ruby_users:
+      - root
+      - deployer
+  vars_files:
+    - ../defaults/main.yml
+  handlers:
+    - include: ../handlers/main.yml
+  tasks:
+    - include: ../tasks/main.yml
+  roles:
+    - innohub-ansible.deployer
+    - innohub-ansible.ruby

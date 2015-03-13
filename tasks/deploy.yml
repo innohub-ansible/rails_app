@@ -1,0 +1,30 @@
+---
+- name: update shared files
+  sudo_user: deployer
+  template: src={{ item }} dest={{ rails_app_shared_path }}/config/{{ item }}
+  with_items:
+    - database.yml
+    - secrets.yml
+
+- name: mina | create deploy directory
+  sudo_user: deployer
+  file: path=~/deploy/ state=directory
+
+- name: mina | copy deploy.rb script
+  sudo_user: deployer
+  template: src=mina_deploy.rb dest=~/deploy/deploy.rb
+
+- name: mina | generate bash script
+  sudo_user: deployer
+  shell: >
+    executable=/bin/bash source /etc/profile;
+    chruby `cat ~/.ruby-version` &&
+    mina -S -f ~/deploy/deploy.rb deploy | grep -v "Elapsed" > ~/deploy/deploy.sh &&
+    chmod +x ~/deploy/deploy.sh
+
+- name: mina | execute bash script
+  sudo_user: deployer
+  shell: >
+    /bin/bash ~/deploy/deploy.sh
+
+#- name: update nginx site config

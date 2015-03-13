@@ -1,0 +1,29 @@
+---
+- name: install dependencies
+  apt: name=git state=present
+
+- name: setup directories
+  sudo_user: deployer
+  file: >
+    state=directory
+    recurse=yes
+    path={{ rails_app_deploy_to }}/{{ item }}
+  with_items:
+    - releases
+    - shared
+    - shared/config
+    - shared/log
+    - shared/public
+    - shared/public/assets
+    - shared/tmp
+    - shared/tmp/pids
+    - shared/tmp/sockets
+
+- name: install gems
+  sudo_user: deployer
+  with_items:
+    - mina
+    - mina-sidekiq
+  shell: >
+    executable=/bin/bash source /etc/profile;
+    chruby `cat ~/.ruby-version` && gem install {{ item }}
