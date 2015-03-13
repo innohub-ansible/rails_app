@@ -21,7 +21,10 @@ Vagrant.configure(2) do |config|
     ansible.verbose = 'v'
 
     # Used for rails_app_sidekiq: true
-    ansible.groups = { 'sidekiq_servers' => ['default'] }
+    ansible.groups = {
+      'sidekiq_servers' => ['default'],
+      'app_servers' => ['default']
+    }
   end
 
   # Disable automatic box update checking. If you disable this, then

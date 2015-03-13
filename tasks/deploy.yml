@@ -27,4 +27,7 @@
   shell: >
     /bin/bash ~/deploy/deploy.sh
 
-#- name: update nginx site config
+- name: update nginx site config
+  template: src=nginx_site.conf dest=/etc/nginx/sites-enabled/{{ rails_app_name }}_{{ rails_app_env }}.conf
+  notify: restart nginx
+  when: "rails_app_nginx_group in group_names"
