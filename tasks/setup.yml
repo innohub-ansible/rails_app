@@ -3,6 +3,7 @@
   apt: name=git state=present
 
 - name: setup directories
+  sudo: true
   sudo_user: deployer
   file: >
     state=directory
@@ -20,6 +21,7 @@
     - shared/tmp/sockets
 
 - name: install gems
+  sudo: true
   sudo_user: deployer
   with_items:
     - mina

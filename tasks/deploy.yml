@@ -1,5 +1,6 @@
 ---
 - name: update shared files
+  sudo: true
   sudo_user: deployer
   template: src={{ item }} dest={{ rails_app_shared_path }}/config/{{ item }}
   with_items:
@@ -7,14 +8,17 @@
     - secrets.yml
 
 - name: mina | create deploy directory
+  sudo: true
   sudo_user: deployer
   file: path=~/deploy/ state=directory
 
 - name: mina | copy deploy.rb script
+  sudo: true
   sudo_user: deployer
   template: src=mina_deploy.rb dest=~/deploy/deploy.rb
 
 - name: mina | generate bash script
+  sudo: true
   sudo_user: deployer
   shell: >
     executable=/bin/bash source /etc/profile;
@@ -23,11 +27,13 @@
     chmod +x ~/deploy/deploy.sh
 
 - name: mina | execute bash script
+  sudo: true
   sudo_user: deployer
   shell: >
     /bin/bash ~/deploy/deploy.sh
 
 - name: capture rails app ruby path
+  sudo: true
   sudo_user: deployer
   shell: >
     executable=/bin/bash source /etc/profile;
