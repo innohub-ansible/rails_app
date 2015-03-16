@@ -21,8 +21,11 @@ rails_app_database:
   username: "{{ rails_app_name }}"
   password:
 
-rails_app_secrets:
-  secret_key_base:
+rails_app_secrets: |+
+  {{ rails_app_env }}:
+    secret_key_base:
+    app_domain:
+      host: {{ rails_app_domain }}
 
 rails_app_sidekiq: true
 rails_app_sidekiq_group: sidekiq_servers
