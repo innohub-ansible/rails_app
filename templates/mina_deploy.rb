@@ -8,6 +8,7 @@ set :domain, 'foobar.com'
 set :deploy_to, '{{ rails_app_deploy_to }}'
 set :repository, '{{ rails_app_repo }}'
 set :branch, '{{ rails_app_repo_branch }}'
+set :rails_env, '{{ rails_app_env }}'
 
 set :shared_paths, [
   'config/database.yml',
