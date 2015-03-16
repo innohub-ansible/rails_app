@@ -10,12 +10,12 @@
 - name: mina | create deploy directory
   sudo: true
   sudo_user: deployer
-  file: path=~/deploy/ state=directory
+  file: path={{ rails_app_deploy_script_directory }} state=directory recurse=yes
 
 - name: mina | copy deploy.rb script
   sudo: true
   sudo_user: deployer
-  template: src=mina_deploy.rb dest=~/deploy/deploy.rb
+  template: src=mina_deploy.rb dest={{ rails_app_deploy_script_directory }}/deploy.rb
 
 - name: mina | generate bash script
   sudo: true
@@ -23,14 +23,14 @@
   shell: >
     executable=/bin/bash source /etc/profile;
     chruby `cat ~/.ruby-version` &&
-    mina -S -f ~/deploy/deploy.rb deploy | grep -v "Elapsed" > ~/deploy/deploy.sh &&
-    chmod +x ~/deploy/deploy.sh
+    mina -S -f {{ rails_app_deploy_script_directory }}/deploy.rb deploy | grep -v "Elapsed" > ~/deploy/deploy.sh &&
+    chmod +x {{ rails_app_deploy_script_directory }}/deploy.sh
 
 - name: mina | execute bash script
   sudo: true
   sudo_user: deployer
   shell: >
-    /bin/bash ~/deploy/deploy.sh
+    /bin/bash {{ rails_app_deploy_script_directory }}/deploy.sh
 
 - name: capture rails app ruby path
   sudo: true

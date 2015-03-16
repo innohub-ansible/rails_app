@@ -11,6 +11,8 @@ rails_app_deploy_to: /deployer/services/{{ rails_app_name }}_{{ rails_app_env }}
 rails_app_current_path: "{{ rails_app_deploy_to }}/current"
 rails_app_shared_path: "{{ rails_app_deploy_to }}/shared"
 
+rails_app_deploy_script_directory: /deployer/deploy/{{ rails_app_name }}_{{ rails_app_env }}
+
 rails_app_database:
   adapter: postgresql
   encoding: unicode
