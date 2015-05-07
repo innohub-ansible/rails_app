@@ -36,7 +36,11 @@ task :deploy => :environment do
     invoke :'git:clone'
     invoke :'deploy:link_shared_paths'
     invoke :'bundle:install'
+
+    {% if inventory_hostname in groups[rails_db_master_group] %}
     invoke :'rails:db_migrate'
+    {% endif %}
+
     invoke :'rails:assets_precompile'
     invoke :'deploy:cleanup'
 
