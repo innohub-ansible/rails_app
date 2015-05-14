@@ -26,6 +26,7 @@
   with_items:
     - mina
     - mina-sidekiq
+    - newrelic_rpm
   shell: >
     executable=/bin/bash source /etc/profile;
     chruby `cat ~/.ruby-version` && gem install {{ item }}

@@ -38,3 +38,6 @@ rails_app_ssl_certificate_key:
 
 rails_app_nginx: true
 rails_app_nginx_group: app_servers
+
+rails_app_newrelic_key: place_your_newrelic_key_here
+rails_app_newrelic_log_level: info
