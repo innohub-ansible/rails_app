@@ -6,7 +6,14 @@
   with_items:
     - database.yml
     - secrets.yml
+
+- name: update newrelic shared file
+  sudo: true
+  sudo_user: deployer
+  template: src={{ item }} dest={{ rails_app_shared_path }}/config/{{ item }}
+  with_items:
     - newrelic.yml
+  when: rails_app_newrelic and "rails_app_newrelic_group in group names"
 
 - name: mina | create deploy directory
   sudo: true
