@@ -29,13 +29,3 @@
   shell: >
     executable=/bin/bash source /etc/profile;
     chruby `cat ~/.ruby-version` && gem install {{ item }}
-
-- name: install newrelic gem
-  sudo: true
-  sudo_user: deployer
-  with_items:
-    - newrelic_rpm
-  shell: >
-    executable=/bin/bash source /etc/profile;
-    chruby `cat ~/.ruby-version` && gem install {{ item }}
-  when: rails_app_newrelic and "rails_app_newrelic_group in group names"
