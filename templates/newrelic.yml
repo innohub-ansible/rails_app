@@ -15,7 +15,7 @@ license_key: {{ rails_app_newrelic_key }}
 
   # Your application name. Renaming here affects where data displays in New
   # Relic.  For more details, see https://docs.newrelic.com/docs/apm/new-relic-apm/maintenance/renaming-applications
-app_name: {{ rails_app_name }}
+app_name: {{ rails_app_newrelic_app_name }}
 
 # To disable the agent regardless of other settings, uncomment the following:
 # agent_enabled: false
@@ -29,7 +29,7 @@ log_level: {{ rails_app_newrelic_log_level }}
   # If your application has other named environments, configure them here.
 development:
   <<: *default_settings
-  app_name: {{ rails_app_name }} (Development)
+  app_name: {{ rails_app_newrelic_app_name }} (Development)
 
   # NOTE: There is substantial overhead when running in developer mode.
   # Do not use for production or load testing.
@@ -42,7 +42,7 @@ development:
 
     staging:
       <<: *default_settings
-      app_name: {{ rails_app_name }} (Staging)
+      app_name: {{ rails_app_newrelic_app_name }} (Staging)
 
       production:
         <<: *default_settings
