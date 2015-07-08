@@ -1,2 +1,7 @@
 ---
-# handlers file for rails_app
+# handlers file for nginx
+- name: restart nginx
+  service: name=nginx state=restarted
+
+- name: reload nginx
+  service: name=nginx state=reloaded

@@ -38,6 +38,7 @@ rails_app_ssl_certificate_key:
 
 rails_app_nginx: true
 rails_app_nginx_group: app_servers
+rails_app_instances: 2
 
 rails_app_newrelic: false
 rails_app_newrelic_app_name: "{{ rails_app_name }}"
