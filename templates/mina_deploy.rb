@@ -13,6 +13,7 @@ set :rails_env, '{{ rails_app_env }}'
 set :shared_paths, [
   'config/database.yml',
   'config/secrets.yml',
+  'config/newrelic.yml',
   'log',
   'tmp'
 ]
