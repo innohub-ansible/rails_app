@@ -40,3 +40,4 @@ rails_app_nginx: true
 rails_app_nginx_group: app_servers
 rails_app_nginx_config: {}
 rails_app_nginx_config_server_add_header: {}
+rails_app_nginx_config_assets_add_header: {}
