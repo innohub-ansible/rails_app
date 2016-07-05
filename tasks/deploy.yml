@@ -7,6 +7,17 @@
     - database.yml
     - secrets.yml
 
+- name: sidekiq | update upstart
+  sudo: true
+  template: src={{ item }} dest=/etc/init/{{ item }}
+  with_items:
+    - sidekiq.conf
+  when: "rails_app_sidekiq_group in group_names"
+
+- name: sidekiq | reload (silent)
+  service: name=sidekiq state=reloaded
+  when: "rails_app_sidekiq_group in group_names"
+
 - name: mina | create deploy directory
   sudo: true
   sudo_user: deployer
@@ -31,6 +42,15 @@
   sudo_user: deployer
   shell: >
     /bin/bash {{ rails_app_deploy_script_directory }}/deploy.sh
+
+- name: sidekiq | enable service
+  service: name=sidekiq enabled=yes
+  when: "rails_app_sidekiq_group in group_names"
+
+- name: sidekiq | restart
+  sudo: true
+  service: name=sidekiq state=restarted
+  when: "rails_app_sidekiq_group in group_names"
 
 - name: capture rails app ruby path
   sudo: true

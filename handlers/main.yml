@@ -5,3 +5,10 @@
 
 - name: reload nginx
   service: name=nginx state=reloaded
+
+# handlers file for sidekiq
+- name: restart sidekiq
+  service: name=sidekiq state=restarted
+
+- name: reload sidekiq
+  service: name=sidekiq state=reloaded
