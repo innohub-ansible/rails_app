@@ -24,7 +24,7 @@
   sudo: true
   sudo_user: deployer
   with_items:
-    - mina
+    - mina -v 0.3.8
     - mina-sidekiq
   shell: >
     executable=/bin/bash source /etc/profile;
