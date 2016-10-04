@@ -34,7 +34,7 @@
   shell: >
     executable=/bin/bash source /etc/profile;
     chruby `cat ~/.ruby-version` &&
-    mina -S -f {{ rails_app_deploy_script_directory }}/deploy.rb deploy | grep -v "Elapsed" > {{ rails_app_deploy_script_directory }}/deploy.sh &&
+    mina -s -f {{ rails_app_deploy_script_directory }}/deploy.rb deploy | grep -v "Elapsed" > {{ rails_app_deploy_script_directory }}/deploy.sh &&
     chmod +x {{ rails_app_deploy_script_directory }}/deploy.sh
 
 - name: mina | execute bash script
