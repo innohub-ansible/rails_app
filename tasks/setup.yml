@@ -25,7 +25,7 @@
   sudo_user: deployer
   with_items:
     - mina -v 0.3.8
-    - mina-sidekiq
+    - mina-sidekiq -v 0.4.1
   shell: >
     executable=/bin/bash source /etc/profile;
     chruby `cat ~/.ruby-version` && gem install {{ item }}
