@@ -29,7 +29,7 @@ task :deploy => :environment do
     invoke :'deploy:link_shared_paths'
     invoke :'bundle:install'
 
-    {% if inventory_hostname in groups[rails_db_master_group] %}
+    {% if inventory_hostname in groups[rails_db_migration_host] %}
     invoke :'rails:db_migrate'
     {% endif %}
 
