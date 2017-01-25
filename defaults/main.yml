@@ -31,6 +31,10 @@ rails_app_secrets: |+
 
 rails_app_sidekiq: true
 rails_app_sidekiq_group: sidekiq_servers
+rails_app_sidekiq_config: |+
+  ---
+  :concurrency: 5
+  :pidfile: /tmp/pids/sidekiq.pid
 
 rails_app_ssl: false
 rails_app_ssl_certificate:
