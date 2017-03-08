@@ -47,7 +47,7 @@
 - name: whenever | update crontab with environment
   sudo: true
   sudo_user: deployer
-  shell: /bin/bash -lc "bundle exec whenever --update-crontab --set environment='{{ rails_app_env }}'"
+  shell: /bin/bash -lc "bundle exec whenever -w {{ rails_app_name }} --set environment='{{ rails_app_env }}'"
   args:
     chdir: "{{ rails_app_current_path }}"
   when: "'whenever_servers' in group_names"
