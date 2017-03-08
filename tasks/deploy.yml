@@ -44,6 +44,14 @@
   shell: >
     /bin/bash {{ rails_app_deploy_script_directory }}/deploy.sh
 
+- name: whenever | update crontab
+  sudo: true
+  sudo_user: deployer
+  shell: /bin/bash -lc "bundle exec whenever --update-crontab --set environment='{{ rails_app_env }}'"
+  args:
+    chdir: "{{ rails_app_current_path }}"
+  when: "'whenever_servers' in group_names"
+
 - name: sidekiq | enable service
   service: name=sidekiq enabled=yes
   when: "rails_app_sidekiq_group in group_names"
