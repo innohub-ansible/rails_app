@@ -36,9 +36,18 @@ rails_app_sidekiq_config: |+
   :concurrency: 5
   :pidfile: /tmp/pids/sidekiq.pid
 
+rails_app_whenever: false
+
 rails_app_ssl: false
 rails_app_ssl_certificate:
 rails_app_ssl_certificate_key:
+rails_app_ssl_protocols: TLSv1 TLSv1.1 TLSv1.2;
+rails_app_ssl_ciphers: HIGH:!aNULL:!MD5;
+rails_app_ssl_prefer_server_ciphers: on;
+rails_app_ssl_session_timeout: 1d;
+rails_app_ssl_session_cache: shared:SSL:50m;
+rails_app_ssl_stapling: on;
+rails_app_ssl_stapling_verify: on;
 
 rails_app_nginx: true
 rails_app_nginx_group: app_servers
