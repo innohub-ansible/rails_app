@@ -77,9 +77,13 @@
   when: "rails_app_nginx_group in group_names"
 
 - name: copy ssl key
-  template: src=ssl.key dest=/etc/nginx/{{ rails_app_name }}_{{ rails_app_env }}.key
-  when: rails_app_ssl
+  template: src=ssl.key dest={{ rails_app_ssl_certificate_key_path }}
+  when: rails_app_ssl and rails_app_ssl_copy_files and "rails_app_nginx_group in group_names"
 
 - name: copy ssl certificate
-  template: src=ssl.crt dest=/etc/nginx/{{ rails_app_name }}_{{ rails_app_env }}.crt
-  when: rails_app_ssl
+  template: src=ssl.crt dest={{ rails_app_ssl_certificate_path }}
+  when: rails_app_ssl and rails_app_ssl_copy_files and "rails_app_nginx_group in group_names"
+
+- name: nginx | reload (silent)
+  service: name=nginx state=reloaded
+  when: "rails_app_nginx_group in group_names"

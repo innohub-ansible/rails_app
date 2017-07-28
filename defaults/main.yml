@@ -39,6 +39,9 @@ rails_app_sidekiq_config: |+
 rails_app_whenever: false
 
 rails_app_ssl: false
+rails_app_ssl_certificate_path: /etc/nginx/{{ rails_app_name }}_{{rails_app_env }}.crt
+rails_app_ssl_certificate_key_path: /etc/nginx/{{ rails_app_name }}_{{rails_app_env }}.key
+rails_app_ssl_copy_files: false
 rails_app_ssl_certificate:
 rails_app_ssl_certificate_key:
 rails_app_ssl_protocols: TLSv1 TLSv1.1 TLSv1.2;
