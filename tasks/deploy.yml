@@ -13,11 +13,11 @@
   template: src={{ item }} dest=/etc/init/{{ item }}
   with_items:
     - sidekiq.conf
-  when: rails_app_sidekiq and "rails_app_sidekiq_group in group_names"
+  when: rails_app_sidekiq and rails_app_sidekiq_group in group_names
 
 - name: sidekiq | reload (silent)
   service: name=sidekiq state=reloaded
-  when: rails_app_sidekiq and "rails_app_sidekiq_group in group_names"
+  when: rails_app_sidekiq and rails_app_sidekiq_group in group_names
 
 - name: mina | create deploy directory
   sudo: true
@@ -50,16 +50,16 @@
   shell: /bin/bash -lc "bundle exec whenever -w {{ rails_app_name }} --set environment='{{ rails_app_env }}'"
   args:
     chdir: "{{ rails_app_current_path }}"
-  when: rails_app_whenever and "'whenever_servers' in group_names"
+  when: rails_app_whenever and whenever_servers in group_names
 
 - name: sidekiq | enable service
   service: name=sidekiq enabled=yes
-  when: rails_app_sidekiq and "rails_app_sidekiq_group in group_names"
+  when: rails_app_sidekiq and rails_app_sidekiq_group in group_names
 
 - name: sidekiq | restart
   sudo: true
   service: name=sidekiq state=restarted
-  when: rails_app_sidekiq and "rails_app_sidekiq_group in group_names"
+  when: rails_app_sidekiq and rails_app_sidekiq_group in group_names
 
 - name: capture rails app ruby path
   sudo: true
@@ -69,21 +69,21 @@
     chruby `cat ~/.ruby-version` &&
     which ruby
   register: rails_app_ruby_path
-  when: "rails_app_nginx_group in group_names"
+  when: rails_app_nginx_group in group_names
 
 - name: update nginx site config
   template: src=nginx_site.conf dest=/etc/nginx/sites-enabled/{{ rails_app_name }}_{{ rails_app_env }}.conf
   notify: restart nginx
-  when: "rails_app_nginx_group in group_names"
+  when: rails_app_nginx_group in group_names
 
 - name: copy ssl key
   template: src=ssl.key dest={{ rails_app_ssl_certificate_key_path }}
-  when: rails_app_ssl and rails_app_ssl_copy_files and "rails_app_nginx_group in group_names"
+  when: rails_app_ssl and rails_app_ssl_copy_files and rails_app_nginx_group in group_names
 
 - name: copy ssl certificate
   template: src=ssl.crt dest={{ rails_app_ssl_certificate_path }}
-  when: rails_app_ssl and rails_app_ssl_copy_files and "rails_app_nginx_group in group_names"
+  when: rails_app_ssl and rails_app_ssl_copy_files and rails_app_nginx_group in group_names
 
 - name: nginx | reload (silent)
   service: name=nginx state=reloaded
-  when: "rails_app_nginx_group in group_names"
+  when: rails_app_nginx_group in group_names
