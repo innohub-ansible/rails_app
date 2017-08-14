@@ -37,6 +37,7 @@ rails_app_sidekiq_config: |+
   :pidfile: /tmp/pids/sidekiq.pid
 
 rails_app_whenever: false
+rails_app_whenever_group: whenever_servers
 
 rails_app_ssl: false
 rails_app_ssl_certificate_path: /etc/nginx/{{ rails_app_name }}_{{rails_app_env }}.crt

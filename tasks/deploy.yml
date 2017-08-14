@@ -50,7 +50,7 @@
   shell: /bin/bash -lc "bundle exec whenever -w {{ rails_app_name }} --set environment='{{ rails_app_env }}'"
   args:
     chdir: "{{ rails_app_current_path }}"
-  when: rails_app_whenever and whenever_servers in group_names
+  when: rails_app_whenever and rails_app_whenever_group in group_names
 
 - name: sidekiq | enable service
   service: name=sidekiq enabled=yes
